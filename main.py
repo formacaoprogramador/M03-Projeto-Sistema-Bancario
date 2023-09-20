@@ -29,6 +29,20 @@ def remover_conta():
   if not conta_encontrada:
     print('\nO número da conta não existe. Tente novamente.')
 
+def listar_contas():
+  if len(contas) == 0:
+    print('\nNão há contas cadastradas.')
+  else:
+    index = 1
+    for conta_em_consulta in contas:
+      if conta_em_consulta['saldo_conta'] >= 0:
+        status = 'Positivo'
+      else:
+        status = 'Negativo'
+      # format string - f string
+      print(f"{index} - Número da conta: {conta_em_consulta['numero_conta']} | Saldo da conta: R$ {conta_em_consulta['saldo_conta']:.2f} ({status})")
+      index += 1
+
 print(">>> Bem vindo ao sistema Bancário <<<")
 
 while True:
@@ -36,6 +50,7 @@ while True:
   print("0 - Sair")
   print("1 - Criar uma nova conta")
   print("2 - Remover uma conta")
+  print("3 - Listar todas as contas")
   numero_operacao = input("Selecione a operação que deseja realizar:\n>>> ")
 
   if numero_operacao == "0":
@@ -49,6 +64,10 @@ while True:
   # Operação 2 - Remover uma conta
   elif numero_operacao == "2":
     remover_conta()
+
+  # Operação 3 - Listar todas as contas
+  elif numero_operacao == "3":
+    listar_contas()
 
   # Operação inválida
   else:
