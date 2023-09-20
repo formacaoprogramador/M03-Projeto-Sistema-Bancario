@@ -43,6 +43,36 @@ def listar_contas():
       print(f"{index} - Número da conta: {conta_em_consulta['numero_conta']} | Saldo da conta: R$ {conta_em_consulta['saldo_conta']:.2f} ({status})")
       index += 1
 
+def adicionar_saldo_em_conta():
+  numero_conta = input("Digite o número da conta:\n>>> ")
+  for conta_em_consulta in contas:
+    if conta_em_consulta['numero_conta'] == numero_conta:
+      valor_credito = float(input("Digite o valor do crédito:\n>>> R$ "))
+      if valor_credito < 0:
+        print("\nValores negativos não são aceitos. Tente novamente.")
+        return
+      else:
+        conta_em_consulta['saldo_conta'] += valor_credito
+        print("\nOperação efetuada com sucesso.")
+        return
+  print("\nO número da conta não foi encontrado. Tente novamente.")
+
+
+def remover_saldo_em_conta():
+  numero_conta = input("Digite o número da conta:\n>>> ")
+  for conta_em_consulta in contas:
+    if conta_em_consulta['numero_conta'] == numero_conta:
+      valor_debito = float(
+      input("Digite o valor do débito:\n>>> R$ "))
+      if valor_debito < 0:
+        print("\nValores negativos não são aceitos. Tente novamente.")
+        return
+      else:
+        conta_em_consulta['saldo_conta'] -= valor_debito
+        print("\nOperação efetuada com sucesso.")
+        return
+  print("\nO número da conta não foi encontrado. Tente novamente.")
+
 print(">>> Bem vindo ao sistema Bancário <<<")
 
 while True:
@@ -51,6 +81,8 @@ while True:
   print("1 - Criar uma nova conta")
   print("2 - Remover uma conta")
   print("3 - Listar todas as contas")
+  print("4 - Adicionar saldo (creditar)")
+  print("5 - Remover saldo (debitar)")
   numero_operacao = input("Selecione a operação que deseja realizar:\n>>> ")
 
   if numero_operacao == "0":
@@ -68,6 +100,14 @@ while True:
   # Operação 3 - Listar todas as contas
   elif numero_operacao == "3":
     listar_contas()
+
+  # Operação 4 - Crédito
+  elif numero_operacao == "4":
+    adicionar_saldo_em_conta()
+
+  # Operação 5 - Débito
+  elif numero_operacao == "5":
+    remover_saldo_em_conta()
 
   # Operação inválida
   else:
