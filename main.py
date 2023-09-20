@@ -112,6 +112,18 @@ def transferir_saldo_entre_contas():
   elif verificador_etapa == 2:
     print('\nNão é possível transferir dinheiro para a mesma conta.')
 
+def consultar_saldo_de_conta():
+  numero_conta = input('Digite o número da conta para consultar o saldo:\n>>> ')
+  for conta_em_consulta in contas:
+    if conta_em_consulta['numero_conta'] == numero_conta:
+      if conta_em_consulta['saldo_conta'] >= 0:
+        status = 'Positivo'
+      else:
+        status = 'Negativo'
+      print(f"\nO saldo é: R$ {conta_em_consulta['saldo_conta']:.2f} ({status})")
+      return
+  print('\nO número da conta não foi encontrado. Tente novamente.')
+
 print(">>> Bem vindo ao sistema Bancário <<<")
 
 while True:
@@ -122,11 +134,12 @@ while True:
   print("3 - Listar todas as contas")
   print("4 - Adicionar saldo (creditar)")
   print("5 - Remover saldo (debitar)")
-  print("6 - Transferir saldo entre contas")
-  numero_operacao = input("Selecione a operação que deseja realizar:\n>>> ")
+  print("6 - Transferir valor entre contas")
+  print("7 - Consultar saldo de uma conta")
+  numero_operacao = input('Selecione a operação que deseja realizar:\n>>> ')
 
   if numero_operacao == "0":
-    print("\nSistema encerrado.")
+    print('\nSistema encerrado.')
     break
 
   # Operação 1 - Criar uma nova conta
@@ -141,18 +154,22 @@ while True:
   elif numero_operacao == "3":
     listar_contas()
 
-  # Operação 4 - Crédito
+  # Operação 4 - Adicionar saldo
   elif numero_operacao == "4":
     adicionar_saldo_em_conta()
 
-  # Operação 5 - Débito
+  # Operação 5 - Remover saldo
   elif numero_operacao == "5":
     remover_saldo_em_conta()
 
-  # Operação 6 - Transferir entre contas
+  # Operação 6 - Transferir valor entre contas
   elif numero_operacao == "6":
     transferir_saldo_entre_contas()
 
+  # Operação 7 - Consultar saldo de uma conta
+  elif numero_operacao == "7":
+    consultar_saldo_de_conta()
+
   # Operação inválida
   else:
-    print("\nOperação invalida.")
+    print('\nOperação inválida.')
